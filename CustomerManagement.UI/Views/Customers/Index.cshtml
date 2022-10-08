@@ -1,0 +1,51 @@
+﻿@using CustomerManagement.ApiClient.Models.Customers;
+
+@{
+	List<CustomerListItem> customers = ViewBag.Customers;
+}
+
+<div class="container">
+	<div class="row d-flex justify-content-center">
+		<div class="col-12 col-md-6 col-lg-6 col-xl-6">
+			@if (!customers.Any())
+			{
+				<p>Geen klanten gevonden.</p>
+				<p>Klik <a asp-action="Create">hier</a> om er een aan te maken.</p>
+			}
+			else
+			{
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Naam</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (CustomerListItem item in customers)
+						{
+							<tr>
+								<th scope="row">@item.Id</th>
+								<td>@item.Name</td>
+								<td class="text-right">
+									<a asp-action="Edit" asp-route-id="@item.Id">
+										<i class="fa fa-pen"></i>
+									</a>
+									&nbsp;
+									<a asp-action="Delete" asp-route-id="@item.Id">
+										<i class="fa fa-trash text-danger"></i>
+									</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+
+				<p>
+					<a asp-action="Create">Extra klant aanmaken</a>
+				</p>
+			}
+		</div>
+	</div>
+</div>
